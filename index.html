@@ -2,6 +2,61 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KejaHub</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b6a2c">
+<meta name="application-name" content="KejaHub">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="KejaHub">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<style>
+.kh-gate #shell{display:none!important}
+.kh-gate,.kh-gate body{overflow:auto!important}
+#kh{position:fixed;inset:0;z-index:99999;background:#0b6a2c;display:flex;align-items:center;justify-content:center;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));font-family:Poppins,"Trebuchet MS",system-ui,sans-serif;overflow:auto}
+#kh .c{background:#fff;color:#14231a;border-radius:24px;max-width:380px;width:100%;padding:28px 22px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.28);border-bottom:6px solid #f2b705}
+#kh h1{margin:10px 0 6px;font-size:22px;font-weight:700;color:#0b6a2c}
+#kh p{margin:0 0 14px;color:#5f6b64;font-size:14px;line-height:1.45}
+#kh ol{text-align:left;margin:0 0 14px;padding-left:22px;font-size:14px;line-height:1.7}
+#kh button{display:block;width:100%;border:0;background:#0b6a2c;color:#fff;border-radius:30px;padding:13px;font:600 16px Poppins,system-ui,sans-serif;cursor:pointer}
+#kh button.l{background:none;color:#5f6b64;font-size:12.5px;font-weight:500;text-decoration:underline;margin-top:10px;padding:6px}
+#kh .sm{font-size:12px;margin:12px 0 0}
+</style>
+<script>
+/* ===== Install gate: KejaHub only runs as an installed app =====
+   Set ENFORCE_INSTALL to false while developing to open it in a normal browser tab. */
+(function(){
+var ENFORCE_INSTALL=true;
+var mm=function(q){try{return matchMedia(q).matches}catch(e){return false}};
+var standalone=mm("(display-mode: standalone)")||mm("(display-mode: fullscreen)")||mm("(display-mode: minimal-ui)")||mm("(display-mode: window-controls-overlay)")||navigator.standalone===true||(document.referrer||"").indexOf("android-app://")===0;
+window.KH_OK=!ENFORCE_INSTALL||standalone;
+if(window.KH_OK)return;
+document.documentElement.classList.add("kh-gate");
+var ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1),android=/Android/i.test(ua),inApp=/FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|Snapchat|MicroMessenger|; wv\)/i.test(ua);
+var dip=null,box=null,FLAG="kh_installed";
+var flag=function(v){try{v?localStorage.setItem(FLAG,"1"):localStorage.removeItem(FLAG)}catch(e){}};
+var has=function(){try{return localStorage.getItem(FLAG)==="1"}catch(e){return false}};
+var LOGO='<svg width="76" height="61" viewBox="0 0 100 80" aria-hidden="true"><path d="M6 42L50 6l44 36" fill="none" stroke="#0b6a2c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><g fill="#f2b705"><rect x="34" y="34" width="14" height="14"/><rect x="52" y="34" width="14" height="14"/><rect x="34" y="52" width="14" height="14"/><rect x="52" y="52" width="14" height="14"/></g></svg>';
+function openApp(){var u=new URL("./?source=pwa",location.href);if(android)location.href="intent://"+u.host+u.pathname+u.search+"#Intent;scheme="+u.protocol.replace(":","")+";end";else window.open(u.href,"_blank")}
+function ui(){if(!box)return;var h;
+if(dip){h='<h1>Install KejaHub</h1><p>KejaHub works as an app. Install it to your home screen to continue.</p><button id="kh-i">Install app</button>'}
+else if(ios){h='<h1>Add KejaHub to your Home Screen</h1>'+(inApp?'<p>First open this page in <b>Safari</b> (tap the \u2026 or share icon, then \u201COpen in Safari\u201D).</p>':'')+'<ol><li>Tap the <b>Share</b> button (square with an arrow)</li><li>Scroll down and tap <b>Add to Home Screen</b></li><li>Tap <b>Add</b>, then open <b>KejaHub</b> from your Home Screen</li></ol><p class="sm">KejaHub cannot be used inside the browser.</p>'}
+else if(has()){h='<h1>KejaHub is installed</h1><p>Open it from your home screen or app list.</p><button id="kh-o">Open KejaHub</button><p class="sm">If nothing happens, open the KejaHub icon on your device.</p><button class="l" id="kh-r">Not installed? Show install steps</button>'}
+else{h='<h1>Install KejaHub</h1><p>KejaHub only runs as an installed app.</p><ol>'+(android?'<li>Tap the browser menu <b>\u22EE</b></li><li>Tap <b>Install app</b> or <b>Add to Home screen</b></li>':'<li>Click the install icon in the address bar, or open the browser menu</li><li>Choose <b>Install KejaHub</b></li>')+'<li>Open <b>KejaHub</b> from your device</li></ol><p class="sm">Use Chrome, Edge or Samsung Internet if you don\u2019t see the option.</p>'}
+box.innerHTML='<div class="c">'+LOGO+h+'</div>';
+var b;
+if(b=box.querySelector("#kh-i"))b.onclick=function(){if(!dip)return;dip.prompt();dip.userChoice.then(function(r){dip=null;if(r&&r.outcome==="accepted"){flag(1)}ui()})};
+if(b=box.querySelector("#kh-o"))b.onclick=openApp;
+if(b=box.querySelector("#kh-r"))b.onclick=function(){flag(0);ui()}}
+addEventListener("beforeinstallprompt",function(e){e.preventDefault();dip=e;ui()});
+addEventListener("appinstalled",function(){dip=null;flag(1);ui()});
+// Reload into the app if the display mode flips to standalone while this page is open
+try{matchMedia("(display-mode: standalone)").addEventListener("change",function(e){if(e.matches)location.reload()})}catch(e){}
+document.addEventListener("DOMContentLoaded",function(){box=document.createElement("div");box.id="kh";box.setAttribute("role","dialog");box.setAttribute("aria-modal","true");document.body.appendChild(box);ui()});
+})();
+if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <style>
 :root{--g:#0b6a2c;--g2:#2e9e4a;--y:#f2b705;--lg:#d3f1d6;--bg:#fff;--tx:#14231a;--mut:#5f6b64;--ln:#e3e8e3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -389,5 +444,5 @@ function render(keep){const nv=$("#nv"),sc=S.screen;if(sc!=="post"&&PM){PM.destr
 const on=sc==="detail"||(sc==="search"&&S.user&&S.user.role==="manager")?"home":sc==="listings"||sc==="review"?"profile":sc;
 nv.innerHTML=[["home","Home","home"],["saved","Saved","heart"],S.user&&S.user.role==="manager"?["post","Post Ad",""]:["search","Search","search"],["messages","Messages","msg"],["profile","Profile","user"]].map(i=>`<button class="${on===i[0]?"on":""}" onclick="go('${i[0]}')">${i[2]?ic(i[2]):'<span class="plus">+</span>'}${i[1]}${i[0]==="messages"&&unread()?`<span class="dot">${unread()}</span>`:""}</button>`).join("");
 const y=$("#app").scrollTop,f=keep&&document.activeElement&&document.activeElement.id;$("#app").innerHTML=V[sc]();if(sc==="search"&&S.view==="map")drawSMap();if(sc==="detail")drawDMap();if(sc==="post"){drawPick();drawImgs()}if(keep){$("#app").scrollTop=y;if(f){const e=document.getElementById(f);e&&e.focus()}}}
-render();initApp();
+if(window.KH_OK){render();initApp()}
 </script></body></html>
