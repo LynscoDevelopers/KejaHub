@@ -1,7 +1,7 @@
 /* KejaHub service worker: app-shell cache, network-first so updates arrive automatically */
-const CACHE = "kejahub-shell-v1";
-const SHELL = ["./", "./index.html", "./manifest.webmanifest",
-  "./icons/icon-192.png", "./icons/icon-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png"];
+const CACHE = "kejahub-shell-v2";
+const SHELL = ["index.html", "manifest.webmanifest",
+  "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -18,6 +18,6 @@ self.addEventListener("fetch", e => {
     fetch(r).then(res => {
       if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(r, copy)); }
       return res;
-    }).catch(() => caches.match(r).then(m => m || (r.mode === "navigate" ? caches.match("./index.html") : undefined)))
+    }).catch(() => caches.match(r).then(m => m || (r.mode === "navigate" ? caches.match("index.html") : undefined)))
   );
 });
