@@ -485,6 +485,11 @@ box.querySelector(".x").onclick=()=>{box.classList.remove("on");ls.set()};
 if(onGo)box.querySelector(".go").onclick=onGo}
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;
 show("<b>Install Bedsitter.co.ke</b>Faster access, works from your home screen",async()=>{box.classList.remove("on");dp.prompt();const r=await dp.userChoice;dp=null;if(r.outcome!=="accepted")ls.set()})});
+/* Auto-prompt: browsers require a user gesture, so fire the native install dialog on the visitor's first tap */
+function autoPrompt(){if(!dp||standalone||recentlyDismissed())return;
+window.removeEventListener("pointerup",autoPrompt,{passive:true});const p=dp;dp=null;box&&box.classList.remove("on");
+p.prompt();p.userChoice.then(r=>{if(r.outcome!=="accepted")ls.set()}).catch(()=>{})}
+addEventListener("pointerup",autoPrompt,{passive:true});
 addEventListener("appinstalled",()=>{dp=null;box&&box.classList.remove("on")});
 const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 if(ios&&!standalone)setTimeout(()=>show("<b>Install Bedsitter.co.ke</b>Tap <b style=\"display:inline\">Share</b>, then <b style=\"display:inline\">Add to Home Screen</b>"),2500);
