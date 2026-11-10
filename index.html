@@ -161,96 +161,6 @@ svg.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9;stro
 .iw .sh svg{position:static;transform:none;stroke:currentColor;width:20px;height:20px}
 .iw.pw input{padding-right:46px}
 .pin svg,.mk svg{max-width:none;width:40px;height:52px}
-
-/* ================= DESKTOP / TABLET LAYOUT (>=900px) =================
-   Phones keep the original app layout. Wider screens get a sidebar,
-   a wider content column and grid listings. */
-.sbl{display:none}
-@media (min-width:900px){
-html,body{background:#eef2ee}
-body{justify-content:center}
-#shell{max-width:1280px;width:100%;flex-direction:row;box-shadow:0 0 0 1px var(--ln),0 10px 40px rgba(0,0,0,.08)}
-/* sidebar navigation (replaces bottom bar) */
-.nv{order:-1;flex:none;width:230px;flex-direction:column;justify-content:flex-start;gap:4px;border-top:0;border-right:1px solid var(--ln);padding:18px 12px;background:#fff;overflow-y:auto}
-.nv .sbl{display:block;padding:4px 8px 18px}
-.nv button{flex:none;flex-direction:row;justify-content:flex-start;gap:14px;font-size:15px;font-weight:500;padding:12px 14px;border-radius:12px;color:var(--tx);cursor:pointer;text-align:left}
-.nv button:hover{background:var(--lg)}
-.nv button.on{background:var(--lg);color:var(--g);font-weight:700}
-.nv .plus{width:28px;height:28px;font-size:20px}
-.nv .dot{position:static;margin-left:auto}
-#app{flex:1;min-width:0}
-#toast{bottom:28px;left:calc(50% + 115px)}
-#ins{left:auto;right:20px;bottom:20px;width:380px}
-/* top bars: no back-arrow-only look, keep centred title but limit width */
-.hd{padding:16px 28px;font-size:20px}
-.hd span{text-align:left}
-/* generic page padding for forms/lists */
-.pad{padding:18px 32px}
-.card{padding:16px 20px}
-.card .img{width:132px;height:132px}
-.card:hover{background:#f6faf6}
-.mi{padding:15px 28px}
-/* narrow reading column for forms & settings */
-[data-sc=post] #app>.pad,[data-sc=settings] #app>.mi,[data-sc=settings] #app>div{max-width:760px}
-[data-sc=post] #app>.pad{margin:0 auto;width:100%}
-.am{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}
-/* ---- Home ---- */
-[data-sc=home] #app>div:nth-child(2){min-height:340px!important;padding:44px 40px 70px!important}
-[data-sc=home] #app>div:nth-child(2)>div:first-child{font-size:clamp(34px,4vw,52px)!important;max-width:48%!important}
-[data-sc=home] #app>div:nth-child(2)>div:nth-child(2){font-size:16px!important;max-width:40%!important}
-[data-sc=home] #app>div:nth-child(3){max-width:720px;margin:-30px auto 18px!important;padding:7px 7px 7px 22px!important}
-[data-sc=home] #app>div:nth-child(4){grid-template-columns:repeat(4,1fr)!important;gap:16px!important;padding:0 40px!important;max-width:980px;margin:0 auto}
-[data-sc=home] #app>div:nth-child(4)>div{padding:16px 4px!important;font-size:14px!important;transition:transform .15s,box-shadow .15s}
-[data-sc=home] #app>div:nth-child(4)>div:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(11,106,44,.15)}
-[data-sc=home] #app>div:nth-child(5){padding:26px 40px 10px!important}
-[data-sc=home] #app>div:nth-child(6){gap:16px!important;padding:0 40px!important}
-[data-sc=home] #app>div:nth-child(6)>.img{height:150px!important;border-radius:14px!important}
-[data-sc=home] #app>div:nth-child(7){margin:22px 40px!important;max-width:520px}
-[data-sc=home] #app>div:nth-child(8){padding:6px 40px 30px!important;display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:0 24px;align-items:start}
-[data-sc=home] #app>div:nth-child(8)>b{grid-column:1/-1;padding:0 0 8px!important;font-size:20px!important}
-[data-sc=home] #app>div:nth-child(8)>.card{border:1px solid var(--ln);border-radius:14px;margin-bottom:14px}
-[data-sc=home] #app>div:nth-child(8)>.pad{grid-column:1/-1}
-/* ---- Search results: card grid ---- */
-[data-sc=search] #app{display:flex;flex-direction:column}
-[data-sc=search] #app>.hd~.card,[data-sc=search] #app>.hd~.pad.mut{max-width:none}
-[data-sc=search] #app{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;column-gap:20px;padding-bottom:24px}
-[data-sc=search] #app>.hd,[data-sc=search] #app>.pad,[data-sc=search] #app>div:not(.card){grid-column:1/-1}
-[data-sc=search] #app>.card{margin:0 0 0 20px;border:1px solid var(--ln);border-radius:14px;margin-top:14px}
-[data-sc=search] #app>.card:nth-of-type(even){margin-left:0;margin-right:20px}
-[data-sc=search] #app>.pad[style*="padding-bottom:4px"]{display:grid;grid-template-columns:1fr;gap:0}
-.pmap{height:460px}
-[data-sc=search] #smap{height:520px!important}
-/* ---- Detail: photo left, info right ---- */
-[data-sc=detail] #app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);align-items:start;min-height:100%}
-[data-sc=detail] #app>.img{position:sticky;top:0;height:calc(100vh - 0px)!important;min-height:420px}
-[data-sc=detail] #app>div:nth-child(2){margin-top:0!important;border-radius:0!important;padding:28px 32px!important;min-height:100%}
-#dmap{height:300px!important}
-/* ---- Saved / Messages / Profile ---- */
-[data-sc=saved] #app>div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))!important;gap:20px!important;padding:24px 32px!important}
-[data-sc=saved] #app .img{height:170px!important}
-[data-sc=messages] #app>*:not(.hd),[data-sc=profile] #app>*:not(.hd),[data-sc=listings] #app>*:not(.hd),[data-sc=review] #app>*:not(.hd),[data-sc=settings] #app>*:not(.hd){max-width:820px}
-/* ---- Login / signup / welcome: centred card on wide screens ---- */
-[data-sc=login] #app,[data-sc=signup] #app{background:#f3f7f3}
-.wl{--W:1280px}
-/* ---- Menu drawer opens inside the content area ---- */
-#dr .pnl{max-width:340px}
-/* lightbox photo viewer */
-#lb .sl img{max-height:92%}
-/* nicer scrollbars on desktop */
-#app{scrollbar-width:thin;scrollbar-color:#b9c7bc transparent}
-.bk,.card,.mi,.pill,.btn,.nv button,.lnk{cursor:pointer}
-/* the hamburger/menu is redundant with the sidebar on wide screens */
-[data-sc=home] #app>div:first-child>button:first-child{display:none}
-.hd .bk[aria-label=Menu]{display:none}
-}
-@media (min-width:1500px){
-#shell{max-width:1440px}
-[data-sc=search] #app{grid-template-columns:repeat(3,minmax(0,1fr))}
-[data-sc=search] #app>.card,[data-sc=search] #app>.card:nth-of-type(even){margin-left:20px;margin-right:0}
-[data-sc=search] #app>.card:nth-of-type(3n){margin-right:20px}
-}
-/* narrow tablets: smaller sidebar */
-@media (min-width:900px) and (max-width:1100px){.nv{width:84px}.nv button{flex-direction:column;gap:3px;font-size:11px;padding:10px 4px;text-align:center;justify-content:center}.nv .sbl{display:none}.nv .dot{position:absolute;margin:0;right:14px;top:4px}[data-sc=search] #app{grid-template-columns:1fr}[data-sc=search] #app>.card,[data-sc=search] #app>.card:nth-of-type(even){margin:14px 20px 0}[data-sc=detail] #app{grid-template-columns:1fr}[data-sc=detail] #app>.img{position:relative;height:clamp(300px,50vh,480px)!important}}
 </style></head><body>
 <div id="shell"><div id="app"></div><div id="dr" role="dialog" aria-modal="true" aria-label="Menu"></div><div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer"></div><div class="nv" id="nv"></div><div id="ins" role="dialog" aria-label="Install Bedsitter.co.ke"></div><div id="toast"></div></div>
 <script>
@@ -556,9 +466,9 @@ if(!n||!e)return toast("Enter the property name and estate");if(!(t>=1)||!(v>=0)
 const l=g("ut"),b=parseInt(l)||1,d=g("pd"),am=[...document.querySelectorAll("#am .on")].map(x=>x.textContent.replace(/^\S+/,"").trim()||x.textContent),pin=S.pin,pk=g("pk"),pt=g("pt");busy(1);toast("Submitting...");
 try{const ref=FF.doc(FF.collection(DB,"properties")),imgs=await upl(S.pimgs);await FF.setDoc(ref,{ownerId:S.user.id,mgr:S.user.name,phone:S.user.phone,hidePhone:!!S.set.hidePhone,name:n,ptype:pk,estate:e,town:pt,...(pin?{lat:pin[0],lng:pin[1]}:{}),status:"Pending review",am,desc:d,imgs,units:[U(l,r,t,v,b,1,1)],createdAt:FF.serverTimestamp(),updatedAt:FF.serverTimestamp()});
 S.pin=null;S.pimgs=[];S.tab="pend";toast("Submitted for review");go("listings")}catch(x){fail(x)}busy(0)}
-function render(keep){const nv=$("#nv"),sc=S.screen;document.getElementById("shell").dataset.sc=sc;if(sc!=="post"&&PM){PM.destroy();PM=null}killMaps();nv.style.display=["boot","setup","welcome","login","signup"].includes(sc)?"none":"flex";
+function render(keep){const nv=$("#nv"),sc=S.screen;if(sc!=="post"&&PM){PM.destroy();PM=null}killMaps();nv.style.display=["boot","setup","welcome","login","signup"].includes(sc)?"none":"flex";
 const on=sc==="detail"||(sc==="search"&&S.user&&S.user.role==="manager")?"home":sc==="listings"||sc==="review"?"profile":sc;
-nv.innerHTML=`<div class="sbl" onclick="go('home')" style="cursor:pointer">${logo(160)}</div>`+[["home","Home","home"],["saved","Saved","heart"],S.user&&S.user.role==="manager"?["post","Post Ad",""]:["search","Search","search"],["messages","Messages","msg"],["profile","Profile","user"]].map(i=>`<button class="${on===i[0]?"on":""}" onclick="go('${i[0]}')">${i[2]?ic(i[2]):'<span class="plus">+</span>'}${i[1]}${i[0]==="messages"&&unread()?`<span class="dot">${unread()}</span>`:""}</button>`).join("");
+nv.innerHTML=[["home","Home","home"],["saved","Saved","heart"],S.user&&S.user.role==="manager"?["post","Post Ad",""]:["search","Search","search"],["messages","Messages","msg"],["profile","Profile","user"]].map(i=>`<button class="${on===i[0]?"on":""}" onclick="go('${i[0]}')">${i[2]?ic(i[2]):'<span class="plus">+</span>'}${i[1]}${i[0]==="messages"&&unread()?`<span class="dot">${unread()}</span>`:""}</button>`).join("");
 const y=$("#app").scrollTop,f=keep&&document.activeElement&&document.activeElement.id;$("#app").innerHTML=V[sc]();if(sc==="search"&&S.view==="map")drawSMap();if(sc==="detail")drawDMap();if(sc==="post"){drawPick();drawImgs()}if(keep){$("#app").scrollTop=y;if(f){const e=document.getElementById(f);e&&e.focus()}}}
 /* ---- PWA: service worker + install prompt ---- */
 (function(){
@@ -575,11 +485,6 @@ box.querySelector(".x").onclick=()=>{box.classList.remove("on");ls.set()};
 if(onGo)box.querySelector(".go").onclick=onGo}
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;
 show("<b>Install Bedsitter.co.ke</b>Faster access, works from your home screen",async()=>{box.classList.remove("on");dp.prompt();const r=await dp.userChoice;dp=null;if(r.outcome!=="accepted")ls.set()})});
-/* Auto-prompt: browsers require a user gesture, so fire the native install dialog on the visitor's first tap */
-function autoPrompt(){if(!dp||standalone||recentlyDismissed())return;
-window.removeEventListener("pointerup",autoPrompt,{passive:true});const p=dp;dp=null;box&&box.classList.remove("on");
-p.prompt();p.userChoice.then(r=>{if(r.outcome!=="accepted")ls.set()}).catch(()=>{})}
-addEventListener("pointerup",autoPrompt,{passive:true});
 addEventListener("appinstalled",()=>{dp=null;box&&box.classList.remove("on")});
 const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 if(ios&&!standalone)setTimeout(()=>show("<b>Install Bedsitter.co.ke</b>Tap <b style=\"display:inline\">Share</b>, then <b style=\"display:inline\">Add to Home Screen</b>"),2500);
