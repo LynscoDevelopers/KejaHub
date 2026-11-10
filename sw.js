@@ -1,5 +1,5 @@
 /* Bedsitter.co.ke service worker: makes the app installable and gives basic offline support */
-const CACHE = "bedsitter-v1";
+const CACHE = "bedsitter-v2";
 const CORE = [
   "./",
   "index.html",
